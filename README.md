@@ -15,4 +15,4 @@
   + **모든 인원이 모든 과정에 참여합니다. 담당 업무는 명목상 정했습니다.**
 ---
 # 프로젝트 진척도  
-https://docs.google.com/spreadsheets/d/1BaJ4bhXV4MOWaM6r92lpWcFlRkBHEIZ2/edit?usp=sharing&ouid=109188588084789225354&rtpof=true&sd=true
+https://docs.google.com/spreadsheets/d/10FW3OlBUKH2F5dS39VDBljzR9_W99PY1/edit#gid=395812352

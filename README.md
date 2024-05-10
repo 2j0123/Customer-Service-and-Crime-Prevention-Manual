@@ -1,5 +1,6 @@
 # WASSUP_EST_FINAL_Team4
-![기분 좋조 (1)](https://github.com/2j0123/WASSUP_EST_FINAL_Team4/assets/91775854/2c6c6676-1fed-4f78-a925-116a68940786)
+![감정 따뜻쟁이 (1)](https://github.com/2j0123/WASSUP_EST_FINAL_Team4/assets/91775854/e2aa64fc-017b-4ddf-b2b7-ca5c46f99080)
+
 
 
 ---

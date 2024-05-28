@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 import cv2 
 # # from tools import tools, handle_function_call
-from PIL import Image, ImageFont, ImageDraw
+from PIL import Image
 from transformers import pipeline
 
 

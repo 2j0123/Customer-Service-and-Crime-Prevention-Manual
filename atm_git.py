@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import config_test
 
 def set_step(step):
     st.session_state.step = step
@@ -27,21 +28,21 @@ def display_money_demand_question():
     with col3:
         if st.button('선택', key='scam1_select'):
             select_scam(1)
-        st.image(os.path.join('images', 'family_scam.jpg'), use_column_width=True)
+        st.image(os.path.join(config_test.IMG_FOLDER, 'family_scam.jpg'), use_column_width=True)
         st.write('예시 1', unsafe_allow_html=True)
         if 'selected_scam' in st.session_state and st.session_state.selected_scam == 1:
             st.write('✔️', unsafe_allow_html=True)
     with col4:
         if st.button('선택', key='scam2_select'):
             select_scam(2)
-        st.image(os.path.join('images', 'government_scam.jpg'), use_column_width=True)
+        st.image(os.path.join(config_test.IMG_FOLDER, 'government_scam.jpg'), use_column_width=True)
         st.write('예시 2', unsafe_allow_html=True)
         if 'selected_scam' in st.session_state and st.session_state.selected_scam == 2:
             st.write('✔️', unsafe_allow_html=True)
     with col5:
         if st.button('선택', key='scam3_select'):
             select_scam(3)
-        st.image(os.path.join('images', 'app_scam.jpg'), use_column_width=True)
+        st.image(os.path.join(config_test.IMG_FOLDER, 'app_scam.jpg'), use_column_width=True)
         st.write('예시 3', unsafe_allow_html=True)
         if 'selected_scam' in st.session_state and st.session_state.selected_scam == 3:
             st.write('✔️', unsafe_allow_html=True)
@@ -64,8 +65,8 @@ def display_crime_options():
             st.markdown('<a href="tel:112" style="font-size:20px;">112 연결</a>', unsafe_allow_html=True)
     with col6:
         if st.button('보이스피싱 대응 매뉴얼', key='scam_manual'):
-            st.image(os.path.join('images', 'voice1.png'))
-            st.image(os.path.join('images', 'voice2.png'))
+            st.image(os.path.join(config_test.IMG_FOLDER, 'voice1.png'))
+            st.image(os.path.join(config_test.IMG_FOLDER, 'voice2.png'))
     with col7:
         if st.button('사이버 범죄 도움 사이트', key='cyber_crime_help'):
             st.markdown('<a href="https://ecrm.police.go.kr/minwon/main" style="font-size:20px;">사이버 범죄 도움 사이트</a>', unsafe_allow_html=True)
@@ -103,19 +104,19 @@ def display_finance_options():
     col9, col10, col11, col12, col13, col14 = st.columns([2, 2, 2, 2, 2, 2])
     with col9:
         if st.button('현금입금', key='cash_deposit'):
-            st.image(os.path.join('images', 'deposit.png')) 
+            st.image(os.path.join(config_test.IMG_FOLDER, 'deposit.png')) 
     with col10:
         if st.button('현금출금', key='cash_withdrawal'):
-            st.image(os.path.join('images', 'withdrawal.png'))
+            st.image(os.path.join(config_test.IMG_FOLDER, 'withdrawal.png'))
     with col11:
         if st.button('계좌송금', key='account_transfer'):
-            st.image(os.path.join('images', 'remittance.png')) 
+            st.image(os.path.join(config_test.IMG_FOLDER, 'remittance.png')) 
     with col12:
         if st.button('거래조회', key='transaction_inquiry'):
-            st.image(os.path.join('images', 'transactional_information.png'))
+            st.image(os.path.join(config_test.IMG_FOLDER, 'transactional_information.png'))
     with col13:
         if st.button('통장정리', key='update_bankbook'):
-            st.image(os.path.join('images', 'update_bankbook.png')) 
+            st.image(os.path.join(config_test.IMG_FOLDER, 'update_bankbook.png')) 
     with col14:
         if st.button('상담연결', key='consultation_connect'):
             st.markdown('<a href="tel:1234" style="font-size:20px;">상담원 연결</a>', unsafe_allow_html=True)

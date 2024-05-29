@@ -17,6 +17,8 @@ ROOT = root_path.relative_to(Path.cwd())
 
 # Model config
 
+IMG_FOLDER = ROOT / "images"
+
 YOLO_CUSTOM = ROOT / "models" / "yolo_custom_model.pt"
 YOLO_FACE = ROOT / "models" / "yolo_face_detection.pt"
 

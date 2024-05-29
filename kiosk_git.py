@@ -1,4 +1,5 @@
 import streamlit as st
+import config_test
 
 def set_step(step):
     st.session_state.step = step
@@ -32,16 +33,16 @@ def display_manual():
     with col2:
         if 'manual_selection' in st.session_state:
             if st.session_state.manual_selection == 'order':
-                st.image('images/order1.png', caption='매장/포장 여부 선택', use_column_width=True)
-                st.image('images/order2.png', caption='원하는 메뉴 선택', use_column_width=True)
-                st.image('images/order3.png', caption='옵션이 있다면 원하는 옵션 선택한 후 선택 완료 클릭', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'order1.png', caption='매장/포장 여부 선택', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'order2.png', caption='원하는 메뉴 선택', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'order3.png', caption='옵션이 있다면 원하는 옵션 선택한 후 선택 완료 클릭', use_column_width=True)
             elif st.session_state.manual_selection == 'payment':
-                st.image('images/payment.png', caption='메뉴 선택 완료 후 결제 버튼 클릭', use_column_width=True)
-                st.image('images/payment1.png', caption='1. 카드 결제 시 카드 결제 선택', use_column_width=True)
-                st.image('images/payment2.png', caption='카드 투입구에 카드 삽입', use_column_width=True)
-                st.image('images/payment3.png', caption='2. 간편 결제 시 간편 결제 선택', use_column_width=True)
-                st.image('images/payment4.png', caption='QR코드/바코드 스캔', use_column_width=True)
-                st.image('images/payment5.png', caption='주문 완료 확인 및 영수증 출력', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'payment.png', caption='메뉴 선택 완료 후 결제 버튼 클릭', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'payment1.png', caption='1. 카드 결제 시 카드 결제 선택', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'payment2.png', caption='카드 투입구에 카드 삽입', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'payment3.png', caption='2. 간편 결제 시 간편 결제 선택', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'payment4.png', caption='QR코드/바코드 스캔', use_column_width=True)
+                st.image(str(config_test.IMG_FOLDER) + 'payment5.png', caption='주문 완료 확인 및 영수증 출력', use_column_width=True)
             elif st.session_state.manual_selection == 'call':
                 st.markdown('[직원 호출](tel:1234)') # 매장 전화번호 or 벨 울리기 등
 

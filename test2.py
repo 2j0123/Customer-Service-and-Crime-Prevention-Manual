@@ -34,7 +34,6 @@ def vid_with_label_1stg(frame):
     # model_path = "models\yolo_custom_model.pt"
     model_path = config_test.YOLO_CUSTOM
     model = YOLO(model_path)
-    # img = cv2.resize(img, (720, int(720 * (9 / 16))))
     
     if torch.cuda.is_available():
         res = model.track(frame, conf=0.5, persist=True, device='cuda')
@@ -83,7 +82,6 @@ def main():
             success, frame = cap.read()
             frame = cv2.resize(frame, (640, 480))
             
-            # img = img_with_text_results(frame, st_frame)
             if success:
                 # img = img_with_text_results(frame)
                 img, label = vid_with_label_1stg(frame)
@@ -98,7 +96,7 @@ def main():
                     elif emotion_detected == label and time.time() - start_time >= 1:
                         st.write(f"{label} detected for 1 s")
                         run = False
-                        os.system("streamlit run select_git.py")
+                        os.system(str("streamlit run " + str(config_test.ROOT) + "\select_git.py"))
                         break
                 else:
                     emotion_detected = None

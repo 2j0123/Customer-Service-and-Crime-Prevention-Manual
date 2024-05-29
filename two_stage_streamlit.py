@@ -79,11 +79,6 @@ def img_with_text_results(img):
          return img, None
     else:
       return img, None
-    
-    
-
-
-
 
 
 run = st.checkbox('Run')

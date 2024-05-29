@@ -8,6 +8,7 @@ from ultralytics import YOLO
 import time
 import os
 import config_test
+from select_git import run_select
 
 def stream_display(response, placeholder):
     text = ''
@@ -96,7 +97,7 @@ def main():
                     elif emotion_detected == label and time.time() - start_time >= 1:
                         st.write(f"{label} detected for 1 s")
                         run = False
-                        os.system(str("streamlit run " + str(config_test.ROOT) + "\select_git.py"))
+                        run_select()
                         break
                 else:
                     emotion_detected = None

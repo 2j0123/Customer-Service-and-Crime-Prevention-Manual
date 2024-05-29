@@ -63,7 +63,7 @@ def vid_with_label_2stage(img,conf):
 def vid_with_label_1stg(img):
 
     
-    model_path = r"C:\Users\User\Desktop\Code\Github\Final_project\WASSUP_EST_FINAL_Team4\model.pt"
+    model_path = "models\yolo_custom_model.pt"
     model = YOLO(model_path)
     # img = cv2.resize(img, (720, int(720 * (9 / 16))))
     
@@ -76,7 +76,7 @@ def vid_with_label_1stg(img):
     id2label = {
     '0' : 'Anger',
     '1' : 'Happy',
-    '2' : 'Surprised',
+    '2' : 'Panic',
     '3' : 'Sadness'
     }
     # yolo 에서 가져온 값들 따로 처리해보기

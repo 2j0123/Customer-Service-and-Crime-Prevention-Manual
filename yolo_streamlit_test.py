@@ -32,7 +32,7 @@ st.caption("🚀 A streamlit emotion detector by custom model")
 def img_with_text_results(img):
 
     
-    model_path = r"C:\Users\User\Desktop\Code\Github\Final_project\WASSUP_EST_FINAL_Team4\model.pt"
+    model_path = model_path = "\models\yolo_custom_model.pt"
     model = YOLO(model_path)
     # img = cv2.resize(img, (720, int(720 * (9 / 16))))
     

@@ -79,7 +79,6 @@ try:
       success, frame = cap.read()
       frame = cv2.resize(frame, (640, 480))
 
-      # img = img_with_text_results(frame, st_frame)
       if success:
         img = img_with_text_results(frame)
         # img, label = img_with_text_results(frame)

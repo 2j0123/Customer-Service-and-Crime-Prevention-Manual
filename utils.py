@@ -9,10 +9,10 @@ from ultralytics import YOLO
 
 
 
-def vid_with_label_2stage(img,conf):
+def vid_with_label_2stage(img):
 
     
-    yolo_path = r"C:\Users\User\Desktop\Code\Github\Final_project\WASSUP_EST_FINAL_Team4\person_model.pt"
+    yolo_path = "models/yolo_face_detection"
     model = YOLO(yolo_path)
     
     if torch.cuda.is_available():

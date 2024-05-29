@@ -1,166 +1,102 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
--------------------------------------------------
-   @File Name:     utils.py
-   @Author:        Luyao.zhang
-   @Date:          2023/5/16
-   @Description:
--------------------------------------------------
-"""
-from ultralytics import YOLO
 import streamlit as st
+import numpy as np
 import cv2
 from PIL import Image
-import tempfile
+from transformers import pipeline
+import tensorflow as tf
+import torch
+from ultralytics import YOLO
 
 
-def _display_detected_frames(conf, model, st_frame, image):
-    """
-    Display the detected objects on a video frame using the YOLOv8 model.
-    :param conf (float): Confidence threshold for object detection.
-    :param model (YOLOv8): An instance of the `YOLOv8` class containing the YOLOv8 model.
-    :param st_frame (Streamlit object): A Streamlit object to display the detected video.
-    :param image (numpy array): A numpy array representing the video frame.
-    :return: None
-    """
-    # Resize the image to a standard size
-    image = cv2.resize(image, (720, int(720 * (9 / 16))))
 
-    # Predict the objects in the image using YOLOv8 model
-    res = model.predict(image, conf=conf)
+def vid_with_label_2stage(img,conf):
 
-    # Plot the detected objects on the video frame
-    res_plotted = res[0].plot()
-    st_frame.image(res_plotted,
-                   caption='Detected Video',
-                   channels="BGR",
-                   use_column_width=True
-                   )
+    
+    yolo_path = r"C:\Users\User\Desktop\Code\Github\Final_project\WASSUP_EST_FINAL_Team4\person_model.pt"
+    model = YOLO(yolo_path)
+    
+    if torch.cuda.is_available():
+      res = model.track(img, conf = 0.5, persist = True, device = 'cuda' )
+    else:
+      res = model.track(img, conf = 0.5, persist = True)
 
+    if res is not None:
+      try:
+        # yolo 에서 가져온 값들 따로 처리해보기
+        start_point , end_point = np.array_split(res[0].boxes.xyxy.cpu().numpy().tolist()[0],2)
+        # 이미지를 슬라이스 하기
+        roi = img[int(start_point[1]):int(end_point[1]), int(start_point[0]):int(end_point[0])]
 
-@st.cache_resource
-def load_model(model_path):
-    """
-    Loads a YOLO object detection model from the specified model_path.
+        # swin 모델 불러오기
+        swin_path = r'C:\Users\User\Desktop\Code\Github\Final_project\swinv2-tiny-patch4-window8-256-finetuned-eurosat\checkpoint-2516'
+        pipe = pipeline("image-classification", swin_path)
 
-    Parameters:
-        model_path (str): The path to the YOLO model file.
+        kr_to_en = { '분노'    : 'anger',
+                    '기쁨'    : 'happy',
+                    '당황'    : 'panic',
+                    '슬픔'    : 'sadness'             
+                    }
+        
+        
+        #결과
+        results = next(iter(pipe(Image.fromarray(roi))))
+        results_str = kr_to_en[results['label']] + ": " + str(round(results['score']*100, 2)) + '%'
 
-    Returns:
-        A YOLO object detection model.
-    """
+        #cv2 로 박스랑 글자 생성
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        blue  = (255, 0, 0)
+        red = (0, 0, 255)
+
+        cv2.rectangle(img, (int(start_point[0]), int(start_point[1])), 
+                  (int(end_point[0]), int(end_point[1])), blue, 3)
+
+        cv2.putText(img, results_str, (int(start_point[0]), int(start_point[1])) , font, 1, red, 3, cv2.LINE_AA)
+        # cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+        return img, kr_to_en[results['label']]
+      except Exception as e :
+         return img, None
+    else:
+      return img, None
+    
+
+def vid_with_label_1stg(img):
+
+    
+    model_path = r"C:\Users\User\Desktop\Code\Github\Final_project\WASSUP_EST_FINAL_Team4\model.pt"
     model = YOLO(model_path)
-    return model
-
-
-def infer_uploaded_image(conf, model):
-    """
-    Execute inference for uploaded image
-    :param conf: Confidence of YOLOv8 model
-    :param model: An instance of the `YOLOv8` class containing the YOLOv8 model.
-    :return: None
-    """
-    source_img = st.sidebar.file_uploader(
-        label="Choose an image...",
-        type=("jpg", "jpeg", "png", 'bmp', 'webp')
-    )
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        if source_img:
-            uploaded_image = Image.open(source_img)
-            # adding the uploaded image to the page with caption
-            st.image(
-                image=source_img,
-                caption="Uploaded Image",
-                use_column_width=True
-            )
-
-    if source_img:
-        if st.button("Execution"):
-            with st.spinner("Running..."):
-                res = model.predict(uploaded_image,
-                                    conf=conf)
-                boxes = res[0].boxes
-                res_plotted = res[0].plot()[:, :, ::-1]
-
-                with col2:
-                    st.image(res_plotted,
-                             caption="Detected Image",
-                             use_column_width=True)
-                    try:
-                        with st.expander("Detection Results"):
-                            for box in boxes:
-                                st.write(box.xywh)
-                    except Exception as ex:
-                        st.write("No image is uploaded yet!")
-                        st.write(ex)
-
-
-def infer_uploaded_video(conf, model):
-    """
-    Execute inference for uploaded video
-    :param conf: Confidence of YOLOv8 model
-    :param model: An instance of the `YOLOv8` class containing the YOLOv8 model.
-    :return: None
-    """
-    source_video = st.sidebar.file_uploader(
-        label="Choose a video..."
-    )
-
-    if source_video:
-        st.video(source_video)
-
-    if source_video:
-        if st.button("Execution"):
-            with st.spinner("Running..."):
-                try:
-                    tfile = tempfile.NamedTemporaryFile()
-                    tfile.write(source_video.read())
-                    vid_cap = cv2.VideoCapture(
-                        tfile.name)
-                    st_frame = st.empty()
-                    while (vid_cap.isOpened()):
-                        success, image = vid_cap.read()
-                        if success:
-                            _display_detected_frames(conf,
-                                                     model,
-                                                     st_frame,
-                                                     image
-                                                     )
-                        else:
-                            vid_cap.release()
-                            break
-                except Exception as e:
-                    st.error(f"Error loading video: {e}")
-
-
-def infer_uploaded_webcam(conf, model):
-    """
-    Execute inference for webcam.
-    :param conf: Confidence of YOLOv8 model
-    :param model: An instance of the `YOLOv8` class containing the YOLOv8 model.
-    :return: None
-    """
+    # img = cv2.resize(img, (720, int(720 * (9 / 16))))
+    
+    if torch.cuda.is_available():
+      res = model.track(img, conf = 0.5, persist = True, device = 'cuda' )
+    else:
+      res = model.track(img, conf = 0.5, persist = True)
+    
+    res_plotted = res[0].plot()
+    id2label = {
+    '0' : 'Anger',
+    '1' : 'Happy',
+    '2' : 'Surprised',
+    '3' : 'Sadness'
+    }
+    # yolo 에서 가져온 값들 따로 처리해보기
     try:
-        flag = st.button(
-            label="Stop running"
-        )
-        vid_cap = cv2.VideoCapture(0)  # local camera
-        st_frame = st.empty()
-        while not flag:
-            success, image = vid_cap.read()
-            if success:
-                _display_detected_frames(
-                    conf,
-                    model,
-                    st_frame,
-                    image
-                )
-            else:
-                vid_cap.release()
-                break
+        # start_point , end_point = np.array_split(res[0].boxes.xyxy.cpu().numpy().tolist()[0],2)
+        # score = str(round(res[0].boxes.conf.cpu().numpy().tolist()[0]*100,2))+ '%'
+   
+        label = id2label[str(int(res[0].boxes.cls.cpu().numpy().tolist()[0]))]
+        return res_plotted, label
+        # results_str = label + ':'+ score
     except Exception as e:
-        st.error(f"Error loading video: {str(e)}")
+       return res_plotted, None
+    #cv2 로 박스랑 글자 생성
+    # font = cv2.FONT_HERSHEY_SIMPLEX
+    # blue  = (255, 0, 0)
+    # red = (0, 0, 255)
+
+    # processed_img  = cv2.rectangle(img,(int(start_point[0]), int(start_point[1])), (int(end_point[0]), int(end_point[1])), blue, 3)
+    # processed_img = cv2.putText(processed_img, results_str, (int(start_point[0]), int(start_point[1])) , font, 2, red, 3, cv2.LINE_AA)
+    # processed_img = cv2.cvtColor(processed_img, cv2.COLOR_BGR2RGB)
+    
+    # return res_plotted
+    

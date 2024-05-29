@@ -6,6 +6,7 @@ from transformers import pipeline
 import tensorflow as tf
 import torch
 from ultralytics import YOLO
+import config_test
 
 
 
@@ -28,7 +29,7 @@ def vid_with_label_2stage(img):
         roi = img[int(start_point[1]):int(end_point[1]), int(start_point[0]):int(end_point[0])]
 
         # swin 모델 불러오기
-        swin_path = r'C:\Users\User\Desktop\Code\Github\Final_project\swinv2-tiny-patch4-window8-256-finetuned-eurosat\checkpoint-2516'
+        swin_path = config_test.SWINV2
         pipe = pipeline("image-classification", swin_path)
 
         kr_to_en = { '분노'    : 'anger',

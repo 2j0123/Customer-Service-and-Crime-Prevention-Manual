@@ -7,6 +7,7 @@ import torch
 from ultralytics import YOLO
 import time
 import os
+import config_test
 
 def stream_display(response, placeholder):
     text = ''
@@ -30,7 +31,8 @@ def set_generate(state=True):
     st.caption("🚀 A streamlit emotion detector by custom model")
 
 def vid_with_label_1stg(frame):
-    model_path = "models/yolo_custom_model.pt"
+    # model_path = "models\yolo_custom_model.pt"
+    model_path = config_test.YOLO_CUSTOM
     model = YOLO(model_path)
     # img = cv2.resize(img, (720, int(720 * (9 / 16))))
     

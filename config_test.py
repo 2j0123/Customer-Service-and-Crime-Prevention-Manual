@@ -15,6 +15,12 @@ if root_path not in sys.path:
 ROOT = root_path.relative_to(Path.cwd())
 
 
+# Model config
+
+YOLO_CUSTOM = ROOT / "models" / "yolo_custom_model.pt"
+YOLO_FACE = ROOT / "models" / "yolo_face_detection.pt"
+
+
 DETECTION_MODEL_LIST = [
     "yolo_custom_model.pt",
     "yolo_face_detection.pt"

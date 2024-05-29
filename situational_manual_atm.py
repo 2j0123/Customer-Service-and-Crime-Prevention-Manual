@@ -20,7 +20,7 @@ def display_initial_options():
 
 # 금전 요구 상황 확인
 def display_money_demand_question():
-    st.write('이 중에 연관된 상황이 있나요?')
+    st.write('아래 항목 중 해당되는 상황이 있나요?')
 
     col3, col4, col5 = st.columns(3)
     with col3:
@@ -55,7 +55,7 @@ def display_money_demand_question():
 
 # 112 신고 및 범죄 대응 매뉴얼
 def display_crime_options():
-    st.write('아래 항목 중 한 가지를 선택해주세요.')
+    st.write('아래 항목 중 필요하신 버튼을 터치해주세요.')
 
     col5, col6, col7 = st.columns(3)
     with col5:
@@ -97,7 +97,7 @@ def display_help_question():
 def display_finance_options():
     st.subheader('금융 업무 도움 시스템')
     st.write('금융 관련 업무를 도와드리겠습니다.')
-    st.write('필요하신 매뉴얼을 선택해주세요.')
+    st.write('필요하신 버튼을 터치해주세요.')
 
     col9, col10, col11, col12, col13, col14 = st.columns([2, 2, 2, 2, 2, 2])
     with col9:
@@ -163,7 +163,7 @@ st.markdown("""
         margin: 10px 0;
     }
     .stButton>button:hover {
-        background-color: #87cefa;
+        background-color: #72B2C6;
     }
     .stImage {
         width: 100%;

@@ -2,7 +2,7 @@ import streamlit as st
 import atm_git
 import kiosk_git
 
-def run_select():
+def main():
     # '장소 선택' 사이드바
     st.sidebar.title('장소 선택')
     selected_location = st.sidebar.radio('현재 위치', ['ATM', '키오스크'])
@@ -14,4 +14,4 @@ def run_select():
         kiosk_git.main()
 
 if __name__ == "__main__":
-    run_select()
+    main()

@@ -9,6 +9,7 @@ import time
 import os
 import config_test
 from select_git import run_select
+from utils import vid_with_label_1stg, vid_with_label_2stage
 
 def stream_display(response, placeholder):
     text = ''
@@ -31,43 +32,8 @@ def set_generate(state=True):
     st.title("💬 Emotion detector")
     st.caption("🚀 A streamlit emotion detector by custom model")
 
-def vid_with_label_1stg(frame):
-    # model_path = "models\yolo_custom_model.pt"
-    model_path = config_test.YOLO_CUSTOM
-    model = YOLO(model_path)
-    
-    if torch.cuda.is_available():
-        res = model.track(frame, conf=0.5, persist=True, device='cuda')
-    else:
-        res = model.track(frame, conf=0.5, persist=True)
-    
-    res_plotted = res[0].plot()
-    id2label = {
-        '0': 'Anger',
-        '1': 'Happy',
-        '2': 'Panic',
-        '3': 'Sadness'
-    }
-    # yolo 에서 가져온 값들 따로 처리해보기
-    
-    try:
-        # start_point , end_point = np.array_split(res[0].boxes.xyxy.cpu().numpy().tolist()[0],2)
-        # score = str(round(res[0].boxes.conf.cpu().numpy().tolist()[0]*100,2))+ '%'
-        label = id2label[str(int(res[0].boxes.cls.cpu().numpy().tolist()[0]))]
-        return res_plotted, label
-        # results_str = label + ':'+ score
-    except Exception as e:
-        return res_plotted, None
-    #cv2 로 박스랑 글자 생성
-    # font = cv2.FONT_HERSHEY_SIMPLEX
-    # blue  = (255, 0, 0)
-    # red = (0, 0, 255)
-
-    # processed_img  = cv2.rectangle(img,(int(start_point[0]), int(start_point[1])), (int(end_point[0]), int(end_point[1])), blue, 3)
-    # processed_img = cv2.putText(processed_img, results_str, (int(start_point[0]), int(start_point[1])) , font, 2, red, 3, cv2.LINE_AA)
-    # processed_img = cv2.cvtColor(processed_img, cv2.COLOR_BGR2RGB)
-    
-    # return res_plotted
+confidence = float(st.sidebar.slider(
+    "Select Model Confidence", 25, 40, 60, 80, 100 )) / 100
 
 def main():
     set_generate()  # Set up the title and caption
@@ -84,10 +50,8 @@ def main():
             frame = cv2.resize(frame, (640, 480))
             
             if success:
-                # img = img_with_text_results(frame)
-                img, label = vid_with_label_1stg(frame)
+                img, label = vid_with_label_1stg(frame, confidence)
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-                # img = img_with_text_results(frame)
                 FRAME_WINDOW.image(img)
 
                 if label and label != 'Happy':

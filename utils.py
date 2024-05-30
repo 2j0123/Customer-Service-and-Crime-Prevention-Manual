@@ -64,7 +64,7 @@ def vid_with_label_2stage(img, conf):
 def vid_with_label_1stg(img, conf):
 
     
-    model_path = "models\yolo_custom_model.pt"
+    model_path = config_test.YOLO_CUSTOM
     model = YOLO(model_path)
     # img = cv2.resize(img, (720, int(720 * (9 / 16))))
     
@@ -85,6 +85,7 @@ def vid_with_label_1stg(img, conf):
     try:
         start_point , end_point = np.array_split(res[0].boxes.xyxy.cpu().numpy().tolist()[0],2)
         score = str(round(res[0].boxes.conf.cpu().numpy().tolist()[0]*100,2))+ '%'
+        label = id2label[str(int(res[0].boxes.cls.cpu().numpy().tolist()[0]))]
         results_str = label + ':'+ score
 
 
@@ -96,15 +97,15 @@ def vid_with_label_1stg(img, conf):
         #박스랑 레이블 그리기
         processed_img  = cv2.rectangle(img,(int(start_point[0]), int(start_point[1])), (int(end_point[0]), int(end_point[1])), blue, 3)
         processed_img = cv2.putText(processed_img, results_str, (int(start_point[0]), int(start_point[1])) , font, 2, red, 3, cv2.LINE_AA)
-        processed_img = cv2.cvtColor(processed_img, cv2.COLOR_BGR2RGB)
+        # processed_img = cv2.cvtColor(processed_img, cv2.COLOR_BGR2RGB)
    
-        label = id2label[str(int(res[0].boxes.cls.cpu().numpy().tolist()[0]))]
+        
 
         # return res_plotted, label
         return processed_img, label
         
     except Exception as e:
-       return processed_img, None
+       return img, None
     
     
     

@@ -7,7 +7,7 @@ import torch
 from ultralytics import YOLO
 import time
 import os
-import config_test
+import config
 from select_git import run_select
 from utils import vid_with_label_1stg, vid_with_label_2stage
 

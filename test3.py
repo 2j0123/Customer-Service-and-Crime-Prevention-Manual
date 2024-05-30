@@ -4,7 +4,7 @@ import cv2
 from PIL import Image
 import time
 import os
-import config_test
+import config
 from select_git import run_select
 from utils import vid_with_label_1stg, vid_with_label_2stage
 
@@ -32,7 +32,7 @@ st.caption("🚀 A streamlit emotion detector by custom model")
 # confidence = float(st.sidebar.slider(
 #     "Select Model Confidence", 25, 40, 60, 80, 100 )) / 100
 
-confidence = float(st.sidebar.slider("Select Model Confidence", 25, 40, 60, 80, 100)) / 100
+confidence = float(st.sidebar.slider("Select Model Confidence", 25, 100, 40)) / 100
 model_selection = st.sidebar.selectbox("Select Model", ["Model 1 (1stg)", "Model 2 (2stage)"])
 
 def main():

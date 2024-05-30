@@ -6,14 +6,14 @@ from transformers import pipeline
 import tensorflow as tf
 import torch
 from ultralytics import YOLO
-import config_test
+import config
 
 
 
 def vid_with_label_2stage(img, conf):
 
     
-    yolo_path = "models/yolo_face_detection"
+    yolo_path = config.YOLO_FACE
     model = YOLO(yolo_path)
     
     if torch.cuda.is_available():
@@ -29,7 +29,7 @@ def vid_with_label_2stage(img, conf):
         roi = img[int(start_point[1]):int(end_point[1]), int(start_point[0]):int(end_point[0])]
 
         # swin 모델 불러오기
-        swin_path = config_test.SWINV2
+        swin_path = config.SWINV2
         pipe = pipeline("image-classification", swin_path)
 
         kr_to_en = { '분노'    : 'anger',
@@ -51,7 +51,7 @@ def vid_with_label_2stage(img, conf):
         cv2.rectangle(img, (int(start_point[0]), int(start_point[1])), 
                   (int(end_point[0]), int(end_point[1])), blue, 3)
 
-        cv2.putText(img, results_str, (int(start_point[0]), int(start_point[1])) , font, 1, red, 3, cv2.LINE_AA)
+        cv2.putText(img, results_str, (int(start_point[0]), int(start_point[1])) , font, 1, red, 2, cv2.LINE_AA)
         # cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         return img, kr_to_en[results['label']]
@@ -64,7 +64,7 @@ def vid_with_label_2stage(img, conf):
 def vid_with_label_1stg(img, conf):
 
     
-    model_path = config_test.YOLO_CUSTOM
+    model_path = config.YOLO_CUSTOM
     model = YOLO(model_path)
     # img = cv2.resize(img, (720, int(720 * (9 / 16))))
     
@@ -96,7 +96,7 @@ def vid_with_label_1stg(img, conf):
         
         #박스랑 레이블 그리기
         processed_img  = cv2.rectangle(img,(int(start_point[0]), int(start_point[1])), (int(end_point[0]), int(end_point[1])), blue, 3)
-        processed_img = cv2.putText(processed_img, results_str, (int(start_point[0]), int(start_point[1])) , font, 2, red, 3, cv2.LINE_AA)
+        processed_img = cv2.putText(processed_img, results_str, (int(start_point[0]), int(start_point[1])) , font, 1, red, 2, cv2.LINE_AA)
         # processed_img = cv2.cvtColor(processed_img, cv2.COLOR_BGR2RGB)
    
         

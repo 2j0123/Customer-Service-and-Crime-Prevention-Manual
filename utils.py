@@ -104,7 +104,7 @@ def vid_with_label_1stg(img, conf):
         return processed_img, label
         
     except Exception as e:
-       return res_plotted, None
+       return processed_img, None
     
     
     

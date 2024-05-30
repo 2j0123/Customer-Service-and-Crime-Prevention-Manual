@@ -32,8 +32,9 @@ def set_generate(state=True):
     st.title("💬 Emotion detector")
     st.caption("🚀 A streamlit emotion detector by custom model")
 
-confidence = float(st.sidebar.slider(
-    "Select Model Confidence", 25, 40, 60, 80, 100 )) / 100
+# confidence = float(st.sidebar.slider(
+#     "Select Model Confidence", 25, 40, 60, 80, 100 )) / 100
+confidence = 0.5
 
 def main():
     set_generate()  # Set up the title and caption

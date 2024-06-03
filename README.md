@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=wave&color=auto&height=300&section=header&text=WASSUP_FINAL_PROJECT&fontSize=50)
+![header](https://capsule-render.vercel.app/api?type=wave&color=BDBDC8&height=300&section=header&text=WASSUP_FINAL_PROJECT&fontColor=FFFFFF&fontSize=50)
 ![감정 따뜻쟁이 (1)](https://github.com/2j0123/WASSUP_EST_FINAL_Team4/assets/91775854/e2aa64fc-017b-4ddf-b2b7-ca5c46f99080)
 
 

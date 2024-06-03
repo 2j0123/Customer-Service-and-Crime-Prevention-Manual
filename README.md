@@ -14,7 +14,7 @@
 
 ## INTRODUCTION
 ATM or KIOSK 이용 시 사용자 얼굴을 인식합니다. <br>
-Anger, Panic, Sadness의 감정이 5초 이상 지속될 시 각 상황에 맞는 대응 메뉴얼을 제공합니다. <br>
+Anger, Panic, Sadness의 감정이 5초 이상 지속될 시 사용자 응답에 따른 대응 메뉴얼을 제공합니다. <br>
 Data Preprocessing :`Data Augmentation`, `YOLOv8`, `Swin` <br>
 1stage model : `YOLO` <br>
 2stage model : `YOLO` + `SwinV2` <br>

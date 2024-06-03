@@ -43,7 +43,7 @@ def main():
     dark_warning = st.empty()  # Placeholder for dark warning
 
     try:
-        while run:
+        while run and st.session_state.get("camera_active", True):
             success, frame = cap.read()
             frame = cv2.resize(frame, (640, 480))
             

@@ -56,10 +56,15 @@ def main():
                 else:
                     dark_warning.empty()
 
+                
                 if model_selection == "Model 1 (1stg)":
-                    img, label = vid_with_label_1stg(frame, confidence)
-                else:
-                    img, label = vid_with_label_2stage(frame, confidence)
+                    img, label = vid_with_label_1stg(frame, confidence, config.YOLO_CUSTOM)
+                elif model_selection == "Model 2 (5emo_1stg)" :
+                    img, label = vid_with_label_1stg(frame, confidence, config.YOLO_5EMO)
+                elif model_selection == "Model 3 (2stg)" :
+                    img, label = vid_with_label_2stage(frame, confidence, config.SWINV2)
+                elif model_selection == "Model 4 (5emo_2stg)" :
+                    img, label = vid_with_label_2stage(frame, confidence, config.SWINV2_5EMO)
                     
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 FRAME_WINDOW.image(img)

@@ -13,5 +13,8 @@ def run_select():
     elif selected_location == '키오스크':
         kiosk_git.main()
 
+    # 웹캠 비활성화
+    st.session_state.camera_active = False
+
 if __name__ == "__main__":
     run_select()

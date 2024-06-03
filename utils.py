@@ -10,7 +10,7 @@ import config
 
 
 
-def vid_with_label_2stage(img, conf):
+def vid_with_label_2stage(img, conf, model_path):
 
     
     yolo_path = config.YOLO_FACE
@@ -29,11 +29,12 @@ def vid_with_label_2stage(img, conf):
         roi = img[int(start_point[1]):int(end_point[1]), int(start_point[0]):int(end_point[0])]
 
         # swin 모델 불러오기
-        swin_path = config.SWINV2
+        swin_path = model_path
         pipe = pipeline("image-classification", swin_path)
 
         kr_to_en = { '분노'    : 'anger',
                     '기쁨'    : 'happy',
+                    '중립'    : 'neutral',
                     '당황'    : 'panic',
                     '슬픔'    : 'sadness'             
                     }
@@ -41,7 +42,10 @@ def vid_with_label_2stage(img, conf):
         
         #결과
         results = next(iter(pipe(Image.fromarray(roi))))
-        results_str = kr_to_en[results['label']] + ": " + str(round(results['score']*100, 2)) + '%'
+        if model_path == config.SWINV2:
+          results_str = kr_to_en[results['label']] + ": " + str(round(results['score']*100, 2)) + '%'
+        else:
+           results_str = results['label'] + ": " + str(round(results['score']*100, 2)) + '%'
 
         #cv2 로 박스랑 글자 생성
         font = cv2.FONT_HERSHEY_SIMPLEX
@@ -61,12 +65,10 @@ def vid_with_label_2stage(img, conf):
       return img, None
     
 
-def vid_with_label_1stg(img, conf):
+def vid_with_label_1stg(img, conf, model_path):
 
     
-    model_path = config.YOLO_CUSTOM
     model = YOLO(model_path)
-    # img = cv2.resize(img, (720, int(720 * (9 / 16))))
     
     if torch.cuda.is_available():
       res = model.track(img, conf = conf, persist = True, device = 'cuda' )
@@ -77,6 +79,7 @@ def vid_with_label_1stg(img, conf):
     id2label = {
     '0' : 'Anger',
     '1' : 'Happy',
+    '4' : 'Neutral',
     '2' : 'Panic',
     '3' : 'Sadness'
     }

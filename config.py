@@ -22,7 +22,9 @@ IMG_FOLDER = ROOT / "images"
 
 YOLO_CUSTOM = ROOT / "models" / "yolo_custom_model.pt"
 YOLO_FACE = ROOT / "models" / "yolo_face_detection.pt"
+YOLO_5EMO = ROOT / "models" / "yolo_5emotion.pt"
 SWINV2 = ROOT / "swinv2_model" / "checkpoint-2516"
+SWINV2_5EMO = ROOT / "swinv2_model" / "checkpoint-6768"
 
 DETECTION_MODEL_LIST = [
     "yolo_custom_model.pt",

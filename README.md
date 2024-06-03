@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=Waving&color=BDBDC8&height=300&section=header&text=WASSUP_FINAL_PROJECT&fontColor=FFFFFF&fontSize=50)
+![header](https://capsule-render.vercel.app/api?type=waving&color=BDBDB6&height=200&section=header&text=WASSUP%20FINAL%20PROJECT&fontColor=FFFFFF&fontSize=70)
 ### TEAM
   + 최재형 : 프로젝트 매니저(팀장) + 개발 
   + 이진영 : 프로젝트 관리자(데이터, 코드 관리자) + 개발
@@ -50,7 +50,7 @@ pip install transformers
 streamlit run test2.py
 ```
 
-## 프로젝트 진척도  
+## PROJECT TIMELINE
 https://docs.google.com/spreadsheets/d/10FW3OlBUKH2F5dS39VDBljzR9_W99PY1/edit#gid=395812352
 
 ![감정 따뜻쟁이 (1)](https://github.com/2j0123/WASSUP_EST_FINAL_Team4/assets/91775854/e2aa64fc-017b-4ddf-b2b7-ca5c46f99080)

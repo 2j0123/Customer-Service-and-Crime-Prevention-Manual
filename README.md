@@ -1,6 +1,5 @@
 ![header](https://capsule-render.vercel.app/api?type=Waving&color=BDBDC8&height=300&section=header&text=WASSUP_FINAL_PROJECT&fontColor=FFFFFF&fontSize=50)
-
-## TEAM
+### TEAM
   + 최재형 : 프로젝트 매니저(팀장) + 개발 
   + 이진영 : 프로젝트 관리자(데이터, 코드 관리자) + 개발
   + 최한솔 : 프로젝트 서기(회의 안건, 주요 내용 기록) + 개발
@@ -30,6 +29,26 @@ Data Preprocessing :`Data Augmentation`, `YOLOv8`, `Swin` <br>
 * AI HUB에서 데이터 확보
    - Neutral Emotion 추가
 
+## INSTALLATION
+```bash
+# Clone repository
+git clone https://github.com/2j0123/WASSUP_EST_FINAL_Team4.git
+```
+
+```bash
+# Install packages
+pip install ultralytics
+pip install streamlit
+pip install cv2
+pip install tensorflow
+pip install torch
+pip install transformers
+```
+
+```bash
+# Run
+streamlit run test2.py
+```
 
 ## 프로젝트 진척도  
 https://docs.google.com/spreadsheets/d/10FW3OlBUKH2F5dS39VDBljzR9_W99PY1/edit#gid=395812352

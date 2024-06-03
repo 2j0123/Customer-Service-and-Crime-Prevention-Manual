@@ -36,6 +36,9 @@ confidence = float(st.sidebar.slider("Select Model Confidence", 25, 100, 40)) / 
 model_selection = st.sidebar.selectbox("Select Model", ["Model 1 (1stg)", "Model 2 (2stage)"])
 
 def main():
+    if 'camera_active' not in st.session_state:
+        st.session_state.camera_active = True
+        
     set_generate()  # Set up the title and caption
     run = st.checkbox('Run')
     cap = cv2.VideoCapture(0)
@@ -45,12 +48,15 @@ def main():
     emotion_detected = None
     dark_warning = st.empty()  # Placeholder for dark warning
 
+    last_frame = None
+
     try:
         while run and st.session_state.get("camera_active", True):
             success, frame = cap.read()
             frame = cv2.resize(frame, (640, 480))
             
             if success: 
+                last_frame = frame.copy()
                 gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)   #GrayScale 
                 brightness = np.mean(gray_frame)
                 
@@ -79,8 +85,7 @@ def main():
                         start_time = time.time()
                     elif emotion_detected == label and time.time() - start_time >= 1:
                         st.write(f"{label} detected for 1 s")
-                        run = False
-                        cap.release()
+                        st.session_state.camera_active = False
                         run_select()
                         break
                 else:
@@ -90,8 +95,13 @@ def main():
                 cap.release()
                 break
 
-        else:
-            st.write('Stopped')
+        if last_frame is not None:
+            last_frame_rgb = cv2.cvtColor(last_frame, cv2.COLOR_BGR2RGB)
+            FRAME_WINDOW.image(last_frame_rgb)
+
+        cap.release()
+        
+        st.write('Stopped')
 
     except Exception as e:
         st.error(f"Error loading video: {str(e)}")

@@ -24,7 +24,8 @@ YOLO_CUSTOM = ROOT / "models" / "yolo_custom_model.pt"
 YOLO_FACE = ROOT / "models" / "yolo_face_detection.pt"
 YOLO_5EMO = ROOT / "models" / "yolo_5emotion.pt"
 SWINV2 = ROOT / "swinv2_model" / "checkpoint-2516"
-SWINV2_5EMO = ROOT / "swinv2_model" / "checkpoint-6768"
+SWINV2_5EMO = "JaydenJH/swinv2-tiny-patch4-window8-256-finetuned-5emotions"
+SWINV2_BOXED = "JaydenJH/swinv2-tiny-patch4-window8-256-finetuned-5emotions-boxed" 
 
 DETECTION_MODEL_LIST = [
     "yolo_custom_model.pt",

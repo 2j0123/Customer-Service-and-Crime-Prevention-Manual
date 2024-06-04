@@ -100,26 +100,9 @@ def vid_with_label_1stg(img, conf, model_path):
         #박스랑 레이블 그리기
         processed_img  = cv2.rectangle(img,(int(start_point[0]), int(start_point[1])), (int(end_point[0]), int(end_point[1])), blue, 3)
         processed_img = cv2.putText(processed_img, results_str, (int(start_point[0]), int(start_point[1])) , font, 1, red, 2, cv2.LINE_AA)
-        # processed_img = cv2.cvtColor(processed_img, cv2.COLOR_BGR2RGB)
-   
-        
-
-        # return res_plotted, label
         return processed_img, label
         
     except Exception as e:
        return img, None
     
-    
-    
-    #cv2 로 박스랑 글자 생성
-    # font = cv2.FONT_HERSHEY_SIMPLEX
-    # blue  = (255, 0, 0)
-    # red = (0, 0, 255)
-
-    # processed_img  = cv2.rectangle(img,(int(start_point[0]), int(start_point[1])), (int(end_point[0]), int(end_point[1])), blue, 3)
-    # processed_img = cv2.putText(processed_img, results_str, (int(start_point[0]), int(start_point[1])) , font, 2, red, 3, cv2.LINE_AA)
-    # processed_img = cv2.cvtColor(processed_img, cv2.COLOR_BGR2RGB)
-    
-    # return res_plotted
-    
+  

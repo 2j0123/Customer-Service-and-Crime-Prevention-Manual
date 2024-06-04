@@ -30,8 +30,6 @@ def set_generate(state=True):                # 기본값을 True로 설정
 st.title("💬 Emotion detector")            # Streamlit 제목과 캡션
 st.caption("🚀 A streamlit emotion detector by custom model")
 
-# confidence = float(st.sidebar.slider(
-#     "Select Model Confidence", 25, 40, 60, 80, 100 )) / 100
 
 confidence = float(st.sidebar.slider("Select Model Confidence", 25, 100, 40)) / 100        # 사이드 바에 모델 신뢰도 & 모델 선택 메뉴
 model_selection = st.sidebar.selectbox("Select Model", ["Model 1 (1stg)", "Model 2 (5emo_1stg)", "Model 3 (2stg)", "Model 4 (5emo_2stg)"])
@@ -71,8 +69,7 @@ def main():
                     elif emotion_detected == label and time.time() - start_time >= 2:
                         st.write(f"{label} detected for 2 s")
                         run = False
-                        cap.release()
-                        os.system("streamlit run select_git.py")
+                        os.system("streamlit run " + str(config.SELECT_GIT_PATH))
                         break
                 else:
                     emotion_detected = None

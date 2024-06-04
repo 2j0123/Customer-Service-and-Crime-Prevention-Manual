@@ -32,8 +32,7 @@ def set_generate(state=True):                # 기본값을 True로 설정
     st.title("💬 Emotion detector")        # Streamlit 제목과 캡션
     st.caption("🚀 A streamlit emotion detector by custom model")
 
-# confidence = float(st.sidebar.slider(
-#     "Select Model Confidence", 25, 40, 60, 80, 100 )) / 100
+
 confidence = 0.5
 
 def main():

@@ -69,7 +69,7 @@ def main():
                 elif model_selection == "Model 3 (2stg)" :
                     img, label = vid_with_label_2stage(frame, confidence, config.SWINV2)
                 elif model_selection == "Model 4 (5emo_2stg)" :
-                    img, label = vid_with_label_2stage(frame, confidence, config.SWINV2_5EMO)
+                    img, label = vid_with_label_2stage(frame, confidence, config.SWINV2_BOXED)
 
                     # 감지된 이미지를 RGB로 변환하여 화면에 표시
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)

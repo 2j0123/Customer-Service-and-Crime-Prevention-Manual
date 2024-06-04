@@ -55,7 +55,7 @@ pip install transformers
 
 ```bash
 # Run
-streamlit run test2.py
+streamlit run Final.py
 ```
 
 ## PROJECT TIMELINE

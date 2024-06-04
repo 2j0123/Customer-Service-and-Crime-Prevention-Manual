@@ -68,8 +68,8 @@ def main():
                     if emotion_detected is None:
                         emotion_detected = label
                         start_time = time.time()
-                    elif emotion_detected == label and time.time() - start_time >= 3:
-                        st.write(f"{label} detected for 3 s")
+                    elif emotion_detected == label and time.time() - start_time >= 2:
+                        st.write(f"{label} detected for 2 s")
                         run = False
                         os.system("streamlit run select_git.py")
                         break

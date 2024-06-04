@@ -49,7 +49,7 @@ def main():
             success, frame = cap.read()
             frame = cv2.resize(frame, (640, 480))
 
-            if sucess:
+            if success:
             # 모델별로 적절한 함수 호출 -> 이미지 & 레이블 할당
                 if model_selection == "Model 1 (1stg)":
                     img, label = vid_with_label_1stg(frame, confidence, config.YOLO_CUSTOM)

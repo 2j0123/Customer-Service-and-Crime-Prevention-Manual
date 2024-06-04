@@ -2,6 +2,9 @@ import streamlit as st
 import numpy as np
 import cv2
 from PIL import Image
+import tensorflow as tf
+import torch
+from ultralytics import YOLO
 import time
 import os
 # 사용자 정의 모듈
@@ -60,19 +63,14 @@ def main():
                 elif model_selection == "Model 4 (5emo_2stg)" :
                     img, label = vid_with_label_2stage(frame, confidence, config.SWINV2_BOXED)
 
-                    # 감지된 이미지를 RGB로 변환하여 화면에 표시
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-                FRAME_WINDOW.image(img)
-
-                    # Happy가 아닌 경우가 1초 이상 감지되면 감정을 화면에 표시 & 카메라 종료 / 그렇지않을경우 감정 초기화
+                    # Happy가 아닌 경우가 3초 이상 감지되면 감정을 화면에 표시 & 카메라 종료 / 그렇지않을경우 감정 초기화
                 if label and label != 'Happy':
                     if emotion_detected is None:
                         emotion_detected = label
                         start_time = time.time()
-                    elif emotion_detected == label and time.time() - start_time >= 5:
-                        st.write(f"{label} detected for 5 s")
+                    elif emotion_detected == label and time.time() - start_time >= 3:
+                        st.write(f"{label} detected for 3 s")
                         run = False
-                        cap.release()
                         os.system("streamlit run select_git.py")
                         break
                 else:

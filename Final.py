@@ -43,7 +43,6 @@ def main():
     FRAME_WINDOW = st.image([])    # 이미지 프레임을 표시할 위치
     start_time = None
     emotion_detected = None
-    dark_warning = st.empty()  # 어두운 화면 경고 메시지 표시할 위치
     
     try:
         while run:        # Run 선택된 경우 
@@ -51,16 +50,6 @@ def main():
             frame = cv2.resize(frame, (640, 480))
 
             if sucess:
-                # 프레임을 GrayScale로 변환하여 밝기 계산
-                gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                brightness = np.mean(gray_frame)
-
-                # 밝기 30 미만이면 경고 메시지 표시
-                if brightness < 30:
-                    dark_warning.warning("너무 어둡습니다. 화면이 가려진건 아닌지 확인해주세요.")
-                    continue
-                else:
-                    dark_warning.empty()
             # 모델별로 적절한 함수 호출 -> 이미지 & 레이블 할당
                 if model_selection == "Model 1 (1stg)":
                     img, label = vid_with_label_1stg(frame, confidence, config.YOLO_CUSTOM)
@@ -80,8 +69,8 @@ def main():
                     if emotion_detected is None:
                         emotion_detected = label
                         start_time = time.time()
-                    elif emotion_detected == label and time.time() - start_time >= 1:
-                        st.write(f"{label} detected for 1 s")
+                    elif emotion_detected == label and time.time() - start_time >= 5:
+                        st.write(f"{label} detected for 5 s")
                         run = False
                         cap.release()
                         os.system("streamlit run select_git.py")

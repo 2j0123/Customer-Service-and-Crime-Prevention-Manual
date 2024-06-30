@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=BDBDB6&height=200&section=header&text=WASSUP%20FINAL%20PROJECT&fontColor=FFFFFF&fontSize=70)
+
 ### TEAM
   + 최재형 : 프로젝트 매니저(팀장) + 개발 
   + 이진영 : 프로젝트 관리자(데이터, 코드 관리자) + 개발

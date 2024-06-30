@@ -30,7 +30,7 @@ Data Preprocessing :`Data Augmentation`, `YOLOv8`, `Swin` <br>
 ![img4](https://github.com/2j0123/WASSUP_EST_FINAL_Team4/assets/63550106/3a423d46-9d3e-48fe-822b-22ce512dc8ef)
 
 ## DATA
-* ESTsoft 제공
+* 모 교육기관 제공
    - Anger, Happy, Panic, Sadness 4가지 감정의 이미지 데이터
    - 각 감정의 json 파일
    - Segmentation Data
